@@ -1,5 +1,6 @@
-package dh.consultas.model;
+package dh.consultas.model.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,7 +10,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Pessoa {
-    private String nome;
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class DentistaDTO {
+    public String nome;
     private String sobrenome;
 }

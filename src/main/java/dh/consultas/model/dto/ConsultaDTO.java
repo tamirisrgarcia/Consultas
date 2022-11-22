@@ -1,5 +1,6 @@
-package dh.consultas.model;
+package dh.consultas.model.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,9 +12,10 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Consulta {
-    private Paciente paciente;
-    private Dentista dentista;
-    private LocalDateTime horario;
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class ConsultaDTO {
 
+    private String paciente;
+    private String dentista;
+    private LocalDateTime horario;
 }
