@@ -1,17 +1,14 @@
-package dh.consultas.model.dto;
+package dh.consultas.entity.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class DentistaDTO {
-    public String nome;
+
+    private String nome;
     private String sobrenome;
 }
