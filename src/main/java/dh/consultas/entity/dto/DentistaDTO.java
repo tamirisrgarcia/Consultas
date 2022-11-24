@@ -8,7 +8,7 @@ import lombok.Setter;
 @Setter
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class DentistaDTO {
-
+    private Long id;
     private String nome;
     private String sobrenome;
 }
