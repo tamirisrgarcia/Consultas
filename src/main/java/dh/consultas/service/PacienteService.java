@@ -50,9 +50,14 @@ public class PacienteService {
 
     public ResponseEntity<Paciente> salvar(Paciente paciente) {
         try {
-            return ResponseEntity.status(HttpStatus.CREATED).body(pacienteRepository.save(paciente));
+            return ResponseEntity
+                    .status(HttpStatus.CREATED)
+                    .body(pacienteRepository
+                            .save(paciente));
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(paciente);
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .body(paciente);
         }
     }
 
