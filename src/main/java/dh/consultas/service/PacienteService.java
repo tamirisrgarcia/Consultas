@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import dh.consultas.entity.Paciente;
 import dh.consultas.entity.dto.PacienteDTO;
 import dh.consultas.repository.PacienteRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -46,4 +47,13 @@ public class PacienteService {
         return ResponseEntity.ok(dto);
 
     }
+
+    public ResponseEntity<Paciente> salvar(Paciente paciente) {
+        try {
+            return ResponseEntity.status(HttpStatus.CREATED).body(pacienteRepository.save(paciente));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(paciente);
+        }
+    }
+
 }
