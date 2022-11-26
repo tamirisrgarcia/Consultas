@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -59,6 +60,78 @@ public class PacienteService {
                     .status(HttpStatus.BAD_REQUEST)
                     .body(paciente);
         }
+    }
+
+    public ResponseEntity<Paciente> substituir(Long id, Paciente paciente) {
+
+        Optional<Paciente> optionalPaciente = pacienteRepository.findById(id);
+
+        if (optionalPaciente.isEmpty())
+            return ResponseEntity.notFound().build();
+
+        pacienteRepository.delete(optionalPaciente.get());
+
+        try {
+            return ResponseEntity
+                    .status(HttpStatus.CREATED)
+                    .body(pacienteRepository
+                            .save(paciente));
+        } catch (Exception e) {
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .body(paciente);
+        }
+
+    }
+
+    public ResponseEntity<Paciente> alterar(Long id, Paciente paciente) {
+
+        Optional<Paciente> optionalPaciente = pacienteRepository.findById(id);
+
+        if (optionalPaciente.isEmpty())
+            return ResponseEntity.notFound().build();
+
+        Paciente pacienteSalvo = optionalPaciente.get();
+
+        pacienteRepository.delete(pacienteSalvo);
+
+        if (!pacienteSalvo.getNome().equals(paciente.getNome()))
+            pacienteSalvo.setNome(paciente.getNome());
+
+        if (!pacienteSalvo.getSobrenome().equals(paciente.getSobrenome()))
+            pacienteSalvo.setSobrenome(paciente.getSobrenome());
+
+        if (!pacienteSalvo.getRg().equals(paciente.getRg()))
+            pacienteSalvo.setRg(paciente.getRg());
+
+        if (!Objects.equals(pacienteSalvo.getAlta(), paciente.getAlta()))
+            pacienteSalvo.setAlta(paciente.getAlta());
+
+        if (!Objects.equals(pacienteSalvo.getEndereco(), paciente.getEndereco()))
+            pacienteSalvo.setEndereco(paciente.getEndereco());
+
+        try {
+            return ResponseEntity
+                    .status(HttpStatus.CREATED)
+                    .body(pacienteRepository
+                            .save(pacienteSalvo));
+        } catch (Exception e) {
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .body(pacienteSalvo);
+        }
+    }
+
+    public ResponseEntity<Paciente> deletar(Long id, Paciente paciente) {
+
+        Optional<Paciente> optionalPaciente = pacienteRepository.findById(id);
+
+        if (optionalPaciente.isEmpty())
+            return ResponseEntity.notFound().build();
+
+        pacienteRepository.delete(optionalPaciente.get());
+
+        return ResponseEntity.ok(paciente);
     }
 
 }
