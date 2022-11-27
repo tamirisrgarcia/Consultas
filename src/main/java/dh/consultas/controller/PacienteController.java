@@ -1,15 +1,16 @@
 package dh.consultas.controller;
 
+import dh.consultas.entity.Paciente;
 import dh.consultas.entity.dto.PacienteDTO;
 import dh.consultas.service.PacienteService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/paciente")
+@RequestMapping("/pacientes")
+@CrossOrigin("*")
 public class PacienteController {
 
     final
@@ -22,5 +23,15 @@ public class PacienteController {
     @GetMapping
     public List<PacienteDTO> listar() {
         return pacienteService.listar();
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<PacienteDTO> buscar(@PathVariable Long id) {
+        return pacienteService.buscar(id);
+    }
+
+    @PostMapping
+    public ResponseEntity<Paciente> salvar(@RequestBody Paciente paciente) {
+        return pacienteService.salvar(paciente);
     }
 }

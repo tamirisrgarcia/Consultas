@@ -51,14 +51,14 @@ public class PacienteService {
 
     public ResponseEntity<Paciente> salvar(Paciente paciente) {
         try {
+            pacienteRepository.save(paciente);
             return ResponseEntity
                     .status(HttpStatus.CREATED)
-                    .body(pacienteRepository
-                            .save(paciente));
+                    .body(paciente);
         } catch (Exception e) {
             return ResponseEntity
                     .status(HttpStatus.BAD_REQUEST)
-                    .body(paciente);
+                    .build();
         }
     }
 
@@ -104,11 +104,12 @@ public class PacienteService {
         if (!pacienteSalvo.getRg().equals(paciente.getRg()))
             pacienteSalvo.setRg(paciente.getRg());
 
+        if (!pacienteSalvo.getEndereco().equals(paciente.getEndereco()))
+            pacienteSalvo.setEndereco(paciente.getEndereco());
+
         if (!Objects.equals(pacienteSalvo.getAlta(), paciente.getAlta()))
             pacienteSalvo.setAlta(paciente.getAlta());
 
-        if (!Objects.equals(pacienteSalvo.getEndereco(), paciente.getEndereco()))
-            pacienteSalvo.setEndereco(paciente.getEndereco());
 
         try {
             return ResponseEntity
