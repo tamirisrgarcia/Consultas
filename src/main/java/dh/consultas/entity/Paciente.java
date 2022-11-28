@@ -1,22 +1,33 @@
 package dh.consultas.entity;
-
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
-@Getter
-@Setter
-@Entity
+@Getter @Setter @AllArgsConstructor @NoArgsConstructor
+@Entity @Table(name = "paciente")
+
 public class Paciente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String nome;
-    private String sobrenome;
-    private String rg;
+    private Long    id;
+
+    @Column
+    private String  nome;
+
+    @Column
+    private String  sobrenome;
+
+    @Column
+    private String  rg;
+
+    @Column
     private LocalDateTime alta;
-    @ManyToOne
+
+    @OneToOne
+    @JoinColumn(name = "id_endereco")
     private Endereco endereco;
 }
