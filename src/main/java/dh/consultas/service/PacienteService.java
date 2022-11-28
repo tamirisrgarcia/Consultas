@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -95,19 +94,19 @@ public class PacienteService {
 
         pacienteRepository.delete(pacienteSalvo);
 
-        if (!pacienteSalvo.getNome().equals(paciente.getNome()))
+        if (!paciente.getNome().isBlank())
             pacienteSalvo.setNome(paciente.getNome());
 
-        if (!pacienteSalvo.getSobrenome().equals(paciente.getSobrenome()))
+        if (!paciente.getSobrenome().isBlank())
             pacienteSalvo.setSobrenome(paciente.getSobrenome());
 
-        if (!pacienteSalvo.getRg().equals(paciente.getRg()))
+        if (!paciente.getRg().isBlank())
             pacienteSalvo.setRg(paciente.getRg());
 
-        if (!pacienteSalvo.getEndereco().equals(paciente.getEndereco()))
+        if (paciente.getEndereco() != null)
             pacienteSalvo.setEndereco(paciente.getEndereco());
 
-        if (!Objects.equals(pacienteSalvo.getAlta(), paciente.getAlta()))
+        if (!paciente.getAlta().equals(pacienteSalvo.getAlta()))
             pacienteSalvo.setAlta(paciente.getAlta());
 
 
@@ -119,11 +118,11 @@ public class PacienteService {
         } catch (Exception e) {
             return ResponseEntity
                     .status(HttpStatus.BAD_REQUEST)
-                    .body(pacienteSalvo);
+                    .build();
         }
     }
 
-    public ResponseEntity<Paciente> deletar(Long id, Paciente paciente) {
+    public ResponseEntity<Paciente> deletar(Long id) {
 
         Optional<Paciente> optionalPaciente = pacienteRepository.findById(id);
 
@@ -132,7 +131,7 @@ public class PacienteService {
 
         pacienteRepository.delete(optionalPaciente.get());
 
-        return ResponseEntity.ok(paciente);
+        return ResponseEntity.ok().build();
     }
 
 }

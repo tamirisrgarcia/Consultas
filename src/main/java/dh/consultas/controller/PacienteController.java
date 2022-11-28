@@ -34,4 +34,19 @@ public class PacienteController {
     public ResponseEntity<Paciente> salvar(@RequestBody Paciente paciente) {
         return pacienteService.salvar(paciente);
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Paciente> substituir(@PathVariable Long id, @RequestBody Paciente paciente) {
+        return pacienteService.substituir(id, paciente);
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<Paciente> alterar(@PathVariable Long id, @RequestBody Paciente paciente) {
+        return pacienteService.alterar(id, paciente);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Paciente> deletar(@PathVariable Long id) {
+        return pacienteService.deletar(id);
+    }
 }

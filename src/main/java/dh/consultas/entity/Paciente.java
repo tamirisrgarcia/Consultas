@@ -1,19 +1,13 @@
 package dh.consultas.entity;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
 @Entity
 public class Paciente {
     @Id
@@ -22,6 +16,7 @@ public class Paciente {
     private String nome;
     private String sobrenome;
     private String rg;
-    private String alta;
-    private String endereco;
+    private LocalDateTime alta;
+    @ManyToOne
+    private Endereco endereco;
 }
