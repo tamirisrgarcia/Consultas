@@ -1,7 +1,9 @@
 package dh.consultas.controller;
 
 import dh.consultas.entity.Dentista;
+import dh.consultas.entity.Paciente;
 import dh.consultas.entity.dto.DentistaDTO;
+import dh.consultas.entity.dto.PacienteDTO;
 import dh.consultas.service.DentistaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
@@ -20,15 +22,20 @@ public class DentistaController {
     @GetMapping()
     public List<DentistaDTO> buscar() { return service.buscar();}
 
+    @GetMapping("/{id}")
+    public ResponseEntity<DentistaDTO> buscarId(@PathVariable Long id) {
+        return service.buscarId(id);
+    }
+
     @PostMapping
     public ResponseEntity salvar(@RequestBody Dentista dentista) {
         return service.salvar(dentista);
     }
 
-    //@PatchMapping
-    //public ResponseEntity editar(@RequestBody Dentista dentista, Long id) {
-    //    return service.editar(id, dentista);
-    //}
+    @PatchMapping( "/{id}")
+    public ResponseEntity editar(@RequestBody Dentista dentista, @PathVariable Long id) {
+        return service.editar(id, dentista);
+    }
 
 
 
