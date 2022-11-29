@@ -32,7 +32,7 @@ public class DentistaController {
         return service.salvar(dentista);
     }
 
-    @PatchMapping( "/{id}")
+    @PutMapping( "/{id}")
     public ResponseEntity editar(@RequestBody Dentista dentista, @PathVariable Long id) {
         return service.editar(id, dentista);
     }
