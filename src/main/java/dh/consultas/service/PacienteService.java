@@ -68,8 +68,6 @@ public class PacienteService {
         if (optionalPaciente.isEmpty())
             return ResponseEntity.notFound().build();
 
-        pacienteRepository.delete(optionalPaciente.get());
-
         try {
             return ResponseEntity
                     .status(HttpStatus.CREATED)
@@ -78,7 +76,7 @@ public class PacienteService {
         } catch (Exception e) {
             return ResponseEntity
                     .status(HttpStatus.BAD_REQUEST)
-                    .body(paciente);
+                    .build();
         }
 
     }
@@ -92,7 +90,6 @@ public class PacienteService {
 
         Paciente pacienteSalvo = optionalPaciente.get();
 
-        pacienteRepository.delete(pacienteSalvo);
 
         if (!paciente.getNome().isBlank())
             pacienteSalvo.setNome(paciente.getNome());
@@ -106,7 +103,7 @@ public class PacienteService {
         if (paciente.getEndereco() != null)
             pacienteSalvo.setEndereco(paciente.getEndereco());
 
-        if (!paciente.getAlta().equals(pacienteSalvo.getAlta()))
+        if (paciente.getAlta() != null)
             pacienteSalvo.setAlta(paciente.getAlta());
 
 
