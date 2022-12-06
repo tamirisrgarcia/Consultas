@@ -1,21 +1,27 @@
-package dh.consultas.entity;
-
+package com.dh.consultas.entity;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 public class Consulta {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @ManyToOne
     private Paciente paciente;
+
     @ManyToOne
     private Dentista dentista;
-    private LocalDateTime consulta;
+
+    private Timestamp dataHoraConsulta;
 }
