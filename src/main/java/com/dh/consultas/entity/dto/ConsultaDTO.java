@@ -1,17 +1,20 @@
-package dh.consultas.entity.dto;
-
+package com.dh.consultas.entity.dto;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ConsultaDTO {
-
     private String paciente;
     private String dentista;
-    private LocalDateTime consulta;
+    private Timestamp consulta;
 }
