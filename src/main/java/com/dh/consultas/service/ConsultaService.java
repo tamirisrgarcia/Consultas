@@ -1,10 +1,10 @@
 package com.dh.consultas.service;
+
 import com.dh.consultas.entity.Consulta;
 import com.dh.consultas.entity.dto.ConsultaDTO;
 import com.dh.consultas.repository.ConsultaRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.log4j.Log4j;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Log4j
 @Service
@@ -21,7 +20,6 @@ public class ConsultaService {
 
     @Autowired
     ConsultaRepository consultaRepository;
-    //ModelMapper mapper = new ModelMapper();
 
     public ResponseEntity salvar(ConsultaDTO consultaDTO) {
         ObjectMapper mapper = new ObjectMapper();
@@ -59,30 +57,20 @@ public class ConsultaService {
             consultaDTOList.add(mapper.convertValue(c, ConsultaDTO.class));
         }
 
-        if (consultaDTOList.isEmpty()){
+        if (consultaDTOList.isEmpty()) {
             log.warn("lista de consultas vazia... SERVICE");
             return new ResponseEntity("Não há consultas cadastradas.", HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity(consultaDTOList, HttpStatus.OK);
     }
 
-
-    /*
-    public List<ConsultaDTO> listar(){
-        return consultaRepository.findAll()
-                .stream()
-                .map(consulta -> mapper.map(consulta, ConsultaDTO.class))
-                .collect(Collectors.toList());
-    }
-     */
-
-    public ResponseEntity buscarPorID(Long id){
+    public ResponseEntity buscarPorID(Long id) {
         log.info("buscando consulta por id... SERVICE");
 
         ObjectMapper mapper = new ObjectMapper();
         Optional<Consulta> optionalConsulta = consultaRepository.findById(id);
 
-        if (optionalConsulta.isEmpty()){
+        if (optionalConsulta.isEmpty()) {
             return new ResponseEntity("Não foi possível encontrar a consulta.", HttpStatus.NOT_FOUND);
         }
 
@@ -90,18 +78,4 @@ public class ConsultaService {
         ConsultaDTO consultaDTO = mapper.convertValue(c, ConsultaDTO.class);
         return new ResponseEntity(consultaDTO, HttpStatus.OK);
     }
-
-    /*
-    public ResponseEntity atualizar(ConsultaDTO consultaDTO) {
-
-        try {
-            return consultaRepository.save(consultaDTO);
-        } catch (Exception e){
-            log.error("erro ao atualizar consulta... SERVICE");
-            return new ResponseEntity("Erro! Consulta não atualizada.", HttpStatus.BAD_REQUEST);
-        }
-    }
-     */
-
-
 }

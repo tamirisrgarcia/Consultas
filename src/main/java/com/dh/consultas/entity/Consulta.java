@@ -1,4 +1,7 @@
 package com.dh.consultas.entity;
+
+import dh.consultas.entity.Dentista;
+import dh.consultas.entity.Paciente;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
