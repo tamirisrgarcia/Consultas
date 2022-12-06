@@ -1,4 +1,5 @@
-package com.dh.consultas.entity.dto;
+package dh.consultas.entity.dto;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -18,10 +19,11 @@ import javax.validation.constraints.PositiveOrZero;
 public class EnderecoDTO {
 
     @NotBlank
-    @Column (nullable = false, length = 50)
+    @Column(nullable = false, length = 50)
     private String rua;
 
-    @NotBlank @PositiveOrZero
+    @NotBlank
+    @PositiveOrZero
     @Column(nullable = false, length = 4)
     private int numero;
 
@@ -29,18 +31,19 @@ public class EnderecoDTO {
     private String complemento;
 
     @NotBlank
-    @Column (nullable = false, length = 50)
+    @Column(nullable = false, length = 50)
     private String bairro;
 
     @NotBlank
-    @Column (nullable = false, length = 50)
+    @Column(nullable = false, length = 50)
     private String cidade;
 
     @NotBlank
-    @Column (nullable = false, length = 2)
+    @Column(nullable = false, length = 2)
     private String uf;
 
-    @NotBlank @Positive
+    @NotBlank
+    @Positive
     @Column(nullable = false, length = 8)
     private String cep;
 }

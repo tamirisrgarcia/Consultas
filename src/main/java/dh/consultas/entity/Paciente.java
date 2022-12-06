@@ -1,6 +1,5 @@
 package dh.consultas.entity;
 
-import com.dh.consultas.entity.Endereco;
 import lombok.Getter;
 import lombok.Setter;
 

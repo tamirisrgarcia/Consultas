@@ -1,7 +1,7 @@
-package com.dh.consultas.controller;
+package dh.consultas.controller;
 
-import com.dh.consultas.entity.dto.ConsultaDTO;
-import com.dh.consultas.service.ConsultaService;
+import dh.consultas.entity.dto.ConsultaDTO;
+import dh.consultas.service.ConsultaService;
 import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

@@ -1,4 +1,5 @@
-package com.dh.consultas.entity;
+package dh.consultas.entity;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

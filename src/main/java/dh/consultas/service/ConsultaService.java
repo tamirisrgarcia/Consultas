@@ -1,9 +1,9 @@
-package com.dh.consultas.service;
+package dh.consultas.service;
 
-import com.dh.consultas.entity.Consulta;
-import com.dh.consultas.entity.dto.ConsultaDTO;
-import com.dh.consultas.repository.ConsultaRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import dh.consultas.entity.Consulta;
+import dh.consultas.entity.dto.ConsultaDTO;
+import dh.consultas.repository.ConsultaRepository;
 import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
