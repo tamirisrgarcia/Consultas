@@ -12,7 +12,7 @@ import javax.validation.Valid;
 
 @Log4j
 @RestController
-@RequestMapping("consulta")
+@RequestMapping("/consulta")
 @CrossOrigin("*")
 public class ConsultaController {
     @Autowired
