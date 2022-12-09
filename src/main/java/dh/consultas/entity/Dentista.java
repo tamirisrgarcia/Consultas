@@ -2,11 +2,11 @@ package dh.consultas.entity;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.validator.constraints.UniqueElements;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Getter
@@ -16,9 +16,16 @@ public class Dentista {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @NotNull
     private String nome;
+
+    @NotNull
     private String sobrenome;
-    @Size(min = 3, max = 15, message = "Campo de matricula fora dos parametros")
+
+    @NotNull
+    @Column(unique = true)
+    @Size(min = 5, max = 10, message = "Campo de matrícula fora dos parametros")
     private String matricula;
 
 }

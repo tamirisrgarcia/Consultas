@@ -3,6 +3,7 @@ package dh.consultas.service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import dh.consultas.entity.Dentista;
 import dh.consultas.entity.dto.DentistaDTO;
+import dh.consultas.exception.ResourceNotFoundException;
 import dh.consultas.repository.DentistaRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -11,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -37,12 +39,12 @@ public class DentistaService {
         return listDentistaDto;
     }
 
-    public ResponseEntity<DentistaDTO> buscarId(Long id) {
+    public ResponseEntity<DentistaDTO> buscarId(Long id) throws ResourceNotFoundException {
 
         Optional<Dentista> optionalDentista = dentistaRepository.findById(id);
 
         if (optionalDentista.isEmpty())
-            return ResponseEntity.notFound().build();
+            throw new ResourceNotFoundException("Dentista não encontrado");
 
         ObjectMapper mapper = new ObjectMapper();
         Dentista dentista = optionalDentista.get();
@@ -64,11 +66,11 @@ public class DentistaService {
         }
     }
 
-    public ResponseEntity editar(Long id, Dentista dentista) {
+    public ResponseEntity editar(Long id, Dentista dentista) throws ResourceNotFoundException {
         Optional<Dentista> optionalDentista = dentistaRepository.findById(id);
 
         if(optionalDentista.isEmpty()) {
-            return new ResponseEntity("Dentista informado não existe", HttpStatus.NOT_FOUND);
+            throw new ResourceNotFoundException("Dentista não encontrado");
         }
 
         Dentista dentistaSalvo = optionalDentista.get();
@@ -110,6 +112,19 @@ public class DentistaService {
         DentistaDTO dentistaAlterado = mapper.convertValue(dentistaRepository.save(dentista), DentistaDTO.class);
         logger.info("Dentista alterado com sucesso");
         return new ResponseEntity(dentistaAlterado, HttpStatus.CREATED);
+
+    }
+
+    public ResponseEntity deletar(Long id, Dentista dentistaDTO) {
+        Optional<Dentista> optionalDentista = dentistaRepository.findById(id);
+
+        if (optionalDentista.isEmpty())
+            return ResponseEntity.notFound().build();
+
+        dentistaRepository.delete(optionalDentista.get());
+
+        logger.info("Dentista deletado com sucesso");
+        return new ResponseEntity("Dentista deletado com sucesso", HttpStatus.OK);
 
     }
 }

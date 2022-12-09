@@ -3,6 +3,7 @@ package dh.consultas.service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import dh.consultas.entity.Paciente;
 import dh.consultas.entity.dto.PacienteDTO;
+import dh.consultas.exception.ResourceNotFoundException;
 import dh.consultas.repository.PacienteRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,12 +34,12 @@ public class PacienteService {
         return dto;
     }
 
-    public ResponseEntity<PacienteDTO> buscar(Long id) {
+    public ResponseEntity<PacienteDTO> buscar(Long id) throws ResourceNotFoundException {
 
         Optional<Paciente> optionalPaciente = pacienteRepository.findById(id);
 
         if (optionalPaciente.isEmpty())
-            return ResponseEntity.notFound().build();
+            throw new ResourceNotFoundException("Paciente não encontrado");
 
         ObjectMapper mapper = new ObjectMapper();
         Paciente paciente = optionalPaciente.get();
@@ -61,12 +62,12 @@ public class PacienteService {
         }
     }
 
-    public ResponseEntity<Paciente> substituir(Long id, Paciente paciente) {
+    public ResponseEntity<Paciente> substituir(Long id, Paciente paciente) throws ResourceNotFoundException {
 
         Optional<Paciente> optionalPaciente = pacienteRepository.findById(id);
 
         if (optionalPaciente.isEmpty())
-            return ResponseEntity.notFound().build();
+            throw new ResourceNotFoundException("Paciente não encontrado");
 
         try {
             return ResponseEntity

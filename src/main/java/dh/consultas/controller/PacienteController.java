@@ -2,10 +2,12 @@ package dh.consultas.controller;
 
 import dh.consultas.entity.Paciente;
 import dh.consultas.entity.dto.PacienteDTO;
+import dh.consultas.exception.ResourceNotFoundException;
 import dh.consultas.service.PacienteService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -26,22 +28,22 @@ public class PacienteController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<PacienteDTO> buscar(@PathVariable Long id) {
+    public ResponseEntity<PacienteDTO> buscar(@PathVariable Long id) throws ResourceNotFoundException {
         return pacienteService.buscar(id);
     }
 
     @PostMapping
-    public ResponseEntity<Paciente> salvar(@RequestBody Paciente paciente) {
+    public ResponseEntity<Paciente> salvar(@RequestBody @Valid Paciente paciente) {
         return pacienteService.salvar(paciente);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Paciente> substituir(@PathVariable Long id, @RequestBody Paciente paciente) {
+    public ResponseEntity<Paciente> substituir(@PathVariable Long id, @RequestBody @Valid Paciente paciente) throws ResourceNotFoundException {
         return pacienteService.substituir(id, paciente);
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<Paciente> alterar(@PathVariable Long id, @RequestBody Paciente paciente) {
+    public ResponseEntity<Paciente> alterar(@PathVariable Long id, @RequestBody @Valid Paciente paciente) {
         return pacienteService.alterar(id, paciente);
     }
 
