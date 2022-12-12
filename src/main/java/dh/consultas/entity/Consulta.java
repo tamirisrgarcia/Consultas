@@ -1,12 +1,10 @@
 package dh.consultas.entity;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 
 @Getter
@@ -19,12 +17,10 @@ public class Consulta {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.DETACH)
     private Paciente paciente;
 
-    @NotNull
-    @ManyToOne
+    @ManyToOne (cascade = CascadeType.DETACH)
     private Dentista dentista;
 
     private Timestamp dataHoraConsulta;
