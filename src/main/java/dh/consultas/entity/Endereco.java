@@ -5,11 +5,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 
 @Getter
 @Setter
@@ -21,24 +20,30 @@ public class Endereco {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
+    @NotBlank
+    @Column(nullable = false, length = 50)
     private String rua;
 
-    @NotNull
+    @NotNull @Positive
+    @Column(nullable = false, length = 4)
     private int numero;
 
-    @NotNull
+    @Column(length = 100)
     private String complemento;
 
-    @NotNull
+    @NotBlank
+    @Column(nullable = false, length = 50)
     private String bairro;
 
-    @NotNull
+    @NotBlank
+    @Column(nullable = false, length = 50)
     private String cidade;
 
     @NotNull
+    @Column(nullable = false, length = 2)
     private String uf;
 
-    @NotNull
+    @NotNull @Positive
+    @Column(nullable = false, length = 8)
     private String cep;
 }
