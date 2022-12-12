@@ -8,7 +8,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 
 @Getter
 @Setter
@@ -31,7 +31,7 @@ public class Paciente {
     @Size(min = 7, max = 10, message = "RG fora dos parametros")
     private String rg;
 
-    private LocalDateTime alta;
+    private Timestamp alta;
 
     @OneToOne(cascade = CascadeType.ALL)
     private Endereco endereco;
