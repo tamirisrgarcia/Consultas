@@ -29,25 +29,19 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         return super.authenticationManager();
     }
 
-    //Aqui cuidamos da parte de permissão de acesso
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeRequests()
-                //Permitindo acesso apenas ao get de /produto
-                .antMatchers(HttpMethod.GET, "/produto").hasAuthority("admin")
-                //Permitindo autenticação para todos
+                .antMatchers("/consulta").hasAuthority("admin")
                 .antMatchers(HttpMethod.POST, "/auth").permitAll()
-                //.antMatchers(HttpMethod.GET, "/pedido").permitAll()
-                //Bloqueando acesso a qualquer rota que não tenha sido mapeado acima
+                .antMatchers("/pacientes").permitAll()
+                .antMatchers("/dentista").permitAll()
                 .anyRequest().authenticated()
-                //Abre um formulario de login
-                //.and().formLogin();
                 .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and().addFilterBefore(autenticacaoViaTokenFilter, UsernamePasswordAuthenticationFilter.class);
     }
 
-    //Aqui cuidamos da parte de autenticação do acesso
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(autenticacaoService)

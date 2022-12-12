@@ -22,21 +22,16 @@ public class TokenService {
         Date dataHoje = new Date();
         Date dataExpiracao = new Date(dataHoje.getTime() + Long.parseLong(this.expiracao));
         String token = Jwts.builder()
-                //Setamos a origem do token
                 .setIssuer("consultas")
-                //Setamos um valor unico para o token que no caso é nosso username
                 .setSubject(usuarioLogado.getUsername())
-                //Setamos a data de criação do token
                 .setIssuedAt(dataHoje)
-                //Setamos a data de expiração do token
                 .setExpiration(dataExpiracao)
-                //Setamos o metodo de criptografia e a secret que ira gerar o token
                 .signWith(SignatureAlgorithm.HS256, this.secret)
                 .compact();
         return token;
     }
 
-    public boolean vefiricaToken(String token) {
+    public boolean verificaToken(String token) {
         try {
             Jwts.parser().setSigningKey(this.secret).parseClaimsJws(token);
             return true;
