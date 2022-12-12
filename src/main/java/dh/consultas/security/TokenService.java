@@ -12,12 +12,9 @@ import java.util.Date;
 
 @Service
 public class TokenService {
-
-
-    //Aqui usamos @Value para buscar as variaveis que estão no nosso application.properties
-    @Value("${ecommerce.jwt.expiration}")
+    @Value("${consultas.jwt.expiration}")
     private String expiracao;
-    @Value("${ecommerce.jwt.secret}")
+    @Value("${consultas.jwt.secret}")
     private String secret;
 
     public String gerarToken(Authentication authentication) {
@@ -26,7 +23,7 @@ public class TokenService {
         Date dataExpiracao = new Date(dataHoje.getTime() + Long.parseLong(this.expiracao));
         String token = Jwts.builder()
                 //Setamos a origem do token
-                .setIssuer("Api DH Ecommerce")
+                .setIssuer("consultas")
                 //Setamos um valor unico para o token que no caso é nosso username
                 .setSubject(usuarioLogado.getUsername())
                 //Setamos a data de criação do token
