@@ -46,4 +46,14 @@ public class Endereco {
     @NotNull @Positive
     @Column(nullable = false, length = 8)
     private String cep;
+
+    public Endereco(String rua, int numero, String complemento, String bairro, String cidade, String uf, String cep) {
+        this.rua = rua;
+        this.numero = numero;
+        this.complemento = complemento;
+        this.bairro = bairro;
+        this.cidade = cidade;
+        this.uf = uf;
+        this.cep = cep;
+    }
 }
