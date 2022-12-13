@@ -24,8 +24,12 @@ class PacienteServiceTest {
     @Test
     void salvar() {
         Paciente paciente = new Paciente();
-        Assertions.assertNotNull(pacienteService.salvar(paciente));
-
+        paciente.setNome("Maria");
+        paciente.setSobrenome("Silva");
+        paciente.setRg("8561579401");
+        pacienteService.salvar(paciente);
+        Assertions.assertNotNull(paciente);
     }
+
 
 }

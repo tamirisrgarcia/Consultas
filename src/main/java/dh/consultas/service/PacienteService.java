@@ -54,8 +54,8 @@ public class PacienteService {
 
     public ResponseEntity<Paciente> salvar(Paciente paciente) {
         try {
-            log.info("salvando paciente");
             pacienteRepository.save(paciente);
+            log.info("salvando paciente");
             return ResponseEntity
                     .status(HttpStatus.CREATED)
                     .body(paciente);
