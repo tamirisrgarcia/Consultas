@@ -3,6 +3,8 @@ package dh.consultas.service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import dh.consultas.entity.Dentista;
 import dh.consultas.entity.dto.DentistaDTO;
+import dh.consultas.exception.ResourceNotFoundException;
+import dh.consultas.repository.DentistaRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -16,58 +18,75 @@ class DentistaServiceTest {
 
     @Autowired
     DentistaService dentistaService;
-    ObjectMapper mapper = new ObjectMapper();
+
+    @Autowired
+    DentistaRepository dentistaRepository;
+
+    //ObjectMapper mapper = new ObjectMapper();
 
 
     @Test
     void salvar(){
         Dentista dentista = new Dentista();
 
-        dentista.setNome("Marco");
-        dentista.setSobrenome("Silva");
-        dentista.setMatricula("MAT23456");
+        dentista.setNome("Joyce");
+        dentista.setSobrenome("Gomes");
+        dentista.setMatricula("MAT456897");
 
         dentistaService.salvar(dentista);
 
         Assertions.assertNotNull(dentista.getId());
 
     }
-/*
+
     @Test
-    void editarParcial(){
+    void editar(){
         Dentista dentista = new Dentista();
 
-        dentista.setNome("Juliana");
+        dentista.setNome("Julio");
         dentista.setSobrenome("Gomes");
-        dentista.setMatricula("MAT54321");
+        dentista.setMatricula("MAT43215");
         dentistaService.salvar(dentista);
 
         Dentista dentistaNovo = dentista;
 
-        dentistaNovo.setMatricula("MAT56789");
+        dentistaNovo.setMatricula("MAT78901");
 
-        dentistaService.editarParcial(2L, dentista);
+        dentistaService.editarParcial(dentista.getId(), dentista);
 
-        assertEquals("MAT56789", dentista.getMatricula());
+        assertEquals("MAT78901", dentista.getMatricula());
 
     }
 
     @Test
-    void buscarId() {
+    void buscarId() throws ResourceNotFoundException {
 
         Dentista dentista = new Dentista();
 
-        dentista.setNome("Roberto");
-        dentista.setSobrenome("Santos");
-        dentista.setMatricula("MAT321456");
-        dentistaService.salvar(dentista);
+        dentista.setNome("Roberta");
+        dentista.setSobrenome("Carolina");
+        dentista.setMatricula("MAT214563");
+        var dentistaSalvo = dentistaRepository.save(dentista);
 
-        Dentista dentistaNovo = dentista;
-        System.out.println(dentistaNovo.getId());
+        var dentistaNovo = dentistaService.buscarId(dentistaSalvo.getId());
+
+        assertEquals(200, dentistaNovo.getStatusCodeValue());
+    }
+
+    @Test
+    void deletar() throws ResourceNotFoundException {
+
+        Dentista dentista = new Dentista();
+
+        dentista.setNome("Caroline");
+        dentista.setSobrenome("Ribeiro");
+        dentista.setMatricula("MAT456321");
+        var dentistaSalvo = dentistaRepository.save(dentista);
+
+        var dentistaNovo = dentistaService.deletar(dentistaSalvo.getId());
+
+        assertEquals(200, dentistaNovo.getStatusCodeValue());
 
     }
 
-
-
- */
 }

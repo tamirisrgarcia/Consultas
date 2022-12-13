@@ -115,7 +115,7 @@ public class DentistaService {
 
     }
 
-    public ResponseEntity deletar(Long id, Dentista dentistaDTO) {
+    public ResponseEntity deletar(Long id) {
         Optional<Dentista> optionalDentista = dentistaRepository.findById(id);
 
         if (optionalDentista.isEmpty())

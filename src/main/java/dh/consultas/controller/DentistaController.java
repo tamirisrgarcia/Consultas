@@ -51,9 +51,9 @@ public class DentistaController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<DentistaDTO> deletar(@RequestBody @Valid Dentista dentista, @PathVariable Long id) {
+    public ResponseEntity<DentistaDTO> deletar(@PathVariable Long id) {
         log.info("Deletando dentista por id");
-        return service.deletar(id, dentista);
+        return service.deletar(id);
     }
 
 
