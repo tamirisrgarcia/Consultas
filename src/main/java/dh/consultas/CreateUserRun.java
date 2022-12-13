@@ -8,6 +8,8 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import java.util.Optional;
+
 @Configuration
 public class CreateUserRun implements ApplicationRunner {
 
@@ -17,12 +19,13 @@ public class CreateUserRun implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) throws Exception {
         BCryptPasswordEncoder brCrypt = new BCryptPasswordEncoder();
-
+        Optional<Usuario> username = repository.findByUsername("dois");
         Usuario usuario = new Usuario();
-        usuario.setPassword(brCrypt.encode("091011"));
+        usuario.setPassword(brCrypt.encode("dois"));
         usuario.setUsername("dois");
-
-        repository.save(usuario);
+        if (username.isEmpty()) {
+            repository.save(usuario);
+        }
 
     }
 }
