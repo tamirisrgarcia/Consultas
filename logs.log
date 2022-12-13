@@ -1,0 +1,29 @@
+12-12-22 21:00 [main] INFO  ConsultaServiceTest:36 - Criando novo dentista
+12-12-22 21:00 [main] INFO  ConsultaServiceTest:40 - Criando novo paciente
+12-12-22 21:00 [main] INFO  ConsultaServiceTest:42 - Criando novo endereço
+12-12-22 21:00 [main] INFO  ConsultaServiceTest:47 - Criando nova consulta
+12-12-22 21:00 [main] INFO  ConsultaService:26 - salvando consulta
+12-12-22 21:00 [main] INFO  ConsultaServiceTest:64 - listando todas as consultas
+12-12-22 21:00 [main] INFO  ConsultaService:50 - buscando todas as consultas
+12-12-22 21:00 [main] INFO  ConsultaServiceTest:36 - Criando novo dentista
+12-12-22 21:00 [main] INFO  ConsultaServiceTest:40 - Criando novo paciente
+12-12-22 21:00 [main] INFO  ConsultaServiceTest:42 - Criando novo endereço
+12-12-22 21:00 [main] INFO  ConsultaServiceTest:47 - Criando nova consulta
+12-12-22 21:00 [main] INFO  ConsultaService:26 - salvando consulta
+12-12-22 21:00 [main] INFO  ConsultaServiceTest:58 - salvando consulta
+12-12-22 21:00 [main] INFO  ConsultaServiceTest:36 - Criando novo dentista
+12-12-22 21:00 [main] INFO  ConsultaServiceTest:40 - Criando novo paciente
+12-12-22 21:00 [main] INFO  ConsultaServiceTest:42 - Criando novo endereço
+12-12-22 21:00 [main] INFO  ConsultaServiceTest:47 - Criando nova consulta
+12-12-22 21:00 [main] INFO  ConsultaService:26 - salvando consulta
+12-12-22 21:00 [main] INFO  ConsultaServiceTest:71 - buscando consulta pelo ID
+12-12-22 21:00 [main] INFO  ConsultaService:67 - buscando consulta por id
+12-12-22 21:00 [main] INFO  ConsultaServiceTest:36 - Criando novo dentista
+12-12-22 21:00 [main] INFO  ConsultaServiceTest:40 - Criando novo paciente
+12-12-22 21:00 [main] INFO  ConsultaServiceTest:42 - Criando novo endereço
+12-12-22 21:00 [main] INFO  ConsultaServiceTest:47 - Criando nova consulta
+12-12-22 21:00 [main] INFO  ConsultaService:26 - salvando consulta
+12-12-22 21:00 [main] WARN  ConsultaServiceTest:83 - excluindo consulta
+12-12-22 21:00 [main] INFO  ConsultaService:38 - deletando consulta
+12-12-22 22:15 [main] INFO  PacienteService:36 - listando pacientes
+12-12-22 22:25 [main] INFO  PacienteService:36 - listando pacientes
