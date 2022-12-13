@@ -36,6 +36,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/pacientes").hasRole("admin")
                 .antMatchers("/dentista").hasRole("admin")
                 .antMatchers("/consulta").permitAll()
+                .antMatchers("/auth","/v3/api-docs/**","/swagger-ui/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/auth").permitAll()
                 .anyRequest().authenticated()
                 .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
