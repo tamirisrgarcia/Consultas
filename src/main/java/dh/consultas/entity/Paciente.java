@@ -36,8 +36,7 @@ public class Paciente {
     @OneToOne(cascade = CascadeType.ALL)
     private Endereco endereco;
 
-    public Paciente(Long id, String nome, String sobrenome, String rg) {
-        this.id = id;
+    public Paciente(String nome, String sobrenome, String rg) {
         this.nome = nome;
         this.sobrenome = sobrenome;
         this.rg = rg;

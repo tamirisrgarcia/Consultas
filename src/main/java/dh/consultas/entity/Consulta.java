@@ -17,11 +17,13 @@ public class Consulta {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(cascade = CascadeType.DETACH)
-    private Paciente paciente;
+    private String      codigo;
 
-    @ManyToOne (cascade = CascadeType.DETACH)
-    private Dentista dentista;
+    @ManyToOne
+    private Paciente    paciente;
 
-    private Timestamp dataHoraConsulta;
+    @ManyToOne
+    private Dentista    dentista;
+
+    private Timestamp   dataHoraConsulta;
 }

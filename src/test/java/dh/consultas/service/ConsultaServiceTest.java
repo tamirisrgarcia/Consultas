@@ -1,4 +1,5 @@
 package dh.consultas.service;
+import dh.consultas.entity.Consulta;
 import dh.consultas.entity.Dentista;
 import dh.consultas.entity.Endereco;
 import dh.consultas.entity.Paciente;
@@ -6,6 +7,7 @@ import dh.consultas.entity.dto.ConsultaDTO;
 import dh.consultas.entity.dto.DentistaDTO;
 import dh.consultas.exception.ResourceNotFoundException;
 import lombok.extern.log4j.Log4j;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,59 +30,69 @@ class ConsultaServiceTest {
     @Autowired
     DentistaService dentistaService;
 
-    static ConsultaDTO consultaDTO;
-
-    @BeforeEach
-    public void doBefore() {
-
-        log.info("Criando novo dentista");
-        Dentista dentista = new Dentista(1L, "Maria", "Aquino", "123456" );
-        dentistaService.salvar(dentista);
-
-        log.info("Criando novo paciente");
-        Paciente paciente = new Paciente(1L, "Felipe", "Arruda", "1234567890");
-        log.info("Criando novo endereço");
-        Endereco endereco = new Endereco(1L, "Rua F", 1234, null, "Medianeira", "Santa Maria", "RS", "97015230");
-        paciente.setEndereco(endereco);
-        pacienteService.salvar(paciente);
-
-        log.info("Criando nova consulta");
-        consultaDTO = new ConsultaDTO();
-        consultaDTO.setDentista(dentista);
-        consultaDTO.setPaciente(paciente);
-        consultaDTO.setDataHoraConsulta(Timestamp.valueOf(LocalDateTime.of(2022, 12, 30, 9, 30)));
-
-        consultaService.salvar(consultaDTO);
-    }
-
     @Test
     void salvar() {
-        log.info("salvando consulta");
-        assertEquals("Felipe", consultaDTO.getPaciente().getNome());
+        log.info("Criando novo dentista");
+        Dentista dentista1 = new Dentista("Diego", "Martins", "234567");
+        dentistaService.salvar(dentista1);
+
+        log.info("Criando novo paciente");
+        Paciente paciente1 = new Paciente("Laura", "Arruda", "0987654321");
+        log.info("Criando novo endereço");
+        Endereco endereco = new Endereco("Rua F", 1800, null, "Medianeira", "Santa Maria", "RS", "97015230");
+        paciente1.setEndereco(endereco);
+        pacienteService.salvar(paciente1);
+
+        log.info("Criando nova consulta");
+        ConsultaDTO consulta1 = new ConsultaDTO("cod1", paciente1, dentista1, Timestamp.valueOf("2023-12-10 10:00:00"));
+
+        assertEquals(201, consultaService.salvar(consulta1).getStatusCodeValue());
     }
 
     @Test
-    void listar() throws ResourceNotFoundException {
-        log.info("listando todas as consultas");
-        List<ConsultaDTO> consultaDTOList = consultaService.listar();
-        assertTrue(consultaDTOList.size() > 0);
+    void buscar() throws ResourceNotFoundException {
+        log.info("Criando novo dentista");
+        Dentista dentista2 = new Dentista("Maria", "Aquino", "123456");
+        dentistaService.salvar(dentista2);
+
+        log.info("Criando novo paciente");
+        Paciente paciente2 = new Paciente("Felipe", "Arruda", "1234567890");
+        log.info("Criando novo endereço");
+        Endereco endereco = new Endereco("Rua F", 1234, null, "Medianeira", "Santa Maria", "RS", "97015230");
+        paciente2.setEndereco(endereco);
+        pacienteService.salvar(paciente2);
+
+        log.info("Criando nova consulta");
+        ConsultaDTO consulta2 = new ConsultaDTO("cod2", paciente2, dentista2, Timestamp.valueOf("2023-12-10 08:00:00"));
+        consultaService.salvar(consulta2);
+
+        assertTrue(consultaService.listar().size() > 0);
     }
 
     @Test
-    void buscarPorID() throws ResourceNotFoundException {
-        log.info("buscando consulta pelo ID");
-        assertEquals(HttpStatus.OK, consultaService.buscarPorID(1L).getStatusCode());
-    }
+    void buscarPorCodigo() throws ResourceNotFoundException {
+        log.info("Criando novo dentista");
+        Dentista dentista3 = new Dentista("Vera", "Berriel", "103956");
+        dentistaService.salvar(dentista3);
 
-    /*
-    @Test
-    void alteracaoParcial() {
-    }
-    */
+        log.info("Criando novo paciente");
+        Paciente paciente3 = new Paciente("Luiza", "Martins", "1834564890");
+        log.info("Criando novo endereço");
+        Endereco endereco = new Endereco("Rua F", 7501, null, "Medianeira", "Santa Maria", "RS", "97015230");
+        paciente3.setEndereco(endereco);
+        pacienteService.salvar(paciente3);
+
+        log.info("Criando nova consulta");
+        ConsultaDTO consulta2 = new ConsultaDTO("cod3", paciente3, dentista3, Timestamp.valueOf("2023-12-10 11:00:00"));
+        consultaService.salvar(consulta2);
+
+
+        assertEquals(200,consultaService.buscarPorCodigo("cod3").getStatusCodeValue());
+        }
 
     @Test
-    void deletar() throws ResourceNotFoundException {
-        log.warn("excluindo consulta");
-        assertEquals(HttpStatus.OK, consultaService.deletar(1L).getStatusCode());
+    void deletar() {
+        assertEquals(200, consultaService.deletar("cod1").getStatusCode().value());
     }
+    
 }

@@ -32,4 +32,9 @@ public class Dentista {
     @Size(min = 5, max = 10, message = "Campo de matrícula fora dos parametros")
     private String matricula;
 
+    public Dentista(String nome, String sobrenome, String matricula) {
+        this.nome = nome;
+        this.sobrenome = sobrenome;
+        this.matricula = matricula;
+    }
 }

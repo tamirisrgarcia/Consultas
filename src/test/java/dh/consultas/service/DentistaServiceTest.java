@@ -32,7 +32,7 @@ class DentistaServiceTest {
         Assertions.assertNotNull(dentista.getId());
 
     }
-
+/*
     @Test
     void editarParcial(){
         Dentista dentista = new Dentista();
@@ -68,4 +68,6 @@ class DentistaServiceTest {
     }
 
 
+
+ */
 }

@@ -5,6 +5,7 @@ import dh.consultas.entity.dto.ConsultaDTO;
 import dh.consultas.exception.ResourceNotFoundException;
 import dh.consultas.repository.ConsultaRepository;
 import lombok.extern.log4j.Log4j;
+import org.apache.logging.log4j.message.StringFormattedMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,10 +34,11 @@ public class ConsultaService {
         }
     }
 
-    public ResponseEntity deletar(Long id) {
+    public ResponseEntity deletar(String codigo) {
+        Optional<Consulta> consulta = consultaRepository.findByCodigo(codigo);
         try {
             log.info("deletando consulta");
-            consultaRepository.deleteById(id);
+            consultaRepository.deleteById(consulta.get().getId());
             return new ResponseEntity("Consulta apagada.", HttpStatus.OK);
 
         } catch (Exception e) {
@@ -63,10 +65,10 @@ public class ConsultaService {
         return consultaDTOList;
     }
 
-    public ResponseEntity buscarPorID(Long id) throws ResourceNotFoundException {
+    public ResponseEntity buscarPorCodigo(String codigo) throws ResourceNotFoundException {
         log.info("buscando consulta por id");
         ObjectMapper mapper = new ObjectMapper();
-        Optional<Consulta> optionalConsulta = consultaRepository.findById(id);
+        Optional<Consulta> optionalConsulta = consultaRepository.findByCodigo(codigo);
 
         if (optionalConsulta.isEmpty()) {
             log.error("nenhuma consulta encontrada");
@@ -78,10 +80,10 @@ public class ConsultaService {
         return new ResponseEntity(consultaDTO, HttpStatus.OK);
     }
 
-    public ResponseEntity alteracaoParcial(Long id, ConsultaDTO consultaDTO) {
+    public ResponseEntity alteracaoParcial(String codigo, ConsultaDTO consultaDTO) {
 
         ObjectMapper mapper = new ObjectMapper();
-        Optional<Consulta> consultaOptional = consultaRepository.findById(id);
+        Optional<Consulta> consultaOptional = consultaRepository.findByCodigo(codigo);
 
         if (consultaOptional.isEmpty()) {
             log.info("Erro ao atualizar consulta");
@@ -104,4 +106,5 @@ public class ConsultaService {
         log.info("Consulta alterada");
         return new ResponseEntity(consultaAtualizada, HttpStatus.CREATED);
     }
+
 }

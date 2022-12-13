@@ -11,8 +11,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
-
-@Log4j
 @RestController
 @RequestMapping("/consulta")
 public class ConsultaController {
@@ -20,36 +18,29 @@ public class ConsultaController {
     ConsultaService consultaService;
 
     @PostMapping()
-    public ResponseEntity salvar(@Valid @RequestBody ConsultaDTO consultaDTO) {
-        log.info("salvando consulta... CONTROLLER");
+    public ResponseEntity salvar(@RequestBody @Valid ConsultaDTO consultaDTO) {
         consultaService.salvar(consultaDTO);
         return new ResponseEntity ("Consulta salva", HttpStatus.CREATED);
     }
 
     @GetMapping
     public ResponseEntity buscar() throws ResourceNotFoundException {
-        log.info("listando todas as consultas... CONTROLLER");
         return new ResponseEntity (consultaService.listar(), HttpStatus.OK);
     }
 
-    @GetMapping("{id}")
-    public ResponseEntity buscarPorId(@PathVariable Long id) throws ResourceNotFoundException {
-        log.info("buscando consulta... CONTROLLER");
-        return new ResponseEntity(consultaService.buscarPorID(id), HttpStatus.OK);
+    @GetMapping("{codigo}")
+    public ResponseEntity buscarPorCodigo(@PathVariable String codigo) throws ResourceNotFoundException {
+        return new ResponseEntity(consultaService.buscarPorCodigo(codigo), HttpStatus.OK);
     }
 
-    @DeleteMapping("{id}")
-    public ResponseEntity deletar(@PathVariable Long id){
-        log.warn("excluindo consulta... CONTROLLER");
-        consultaService.deletar(id);
-        return new ResponseEntity("Consulta excluída", HttpStatus.OK);
+    @DeleteMapping()
+    public ResponseEntity deletar(@RequestParam("codigo") String codigo){
+        return consultaService.deletar(codigo);
     }
 
-    @PatchMapping("{id}")
-    public ResponseEntity alteracaoParcial(@PathVariable Long id, @RequestBody @Valid ConsultaDTO consultaDTO) {
-        log.info("alterando consulta... CONTROLLER");
-        consultaService.alteracaoParcial(id, consultaDTO);
+    @PatchMapping("{codigo}")
+    public ResponseEntity alteracaoParcial(@PathVariable String codigo, @RequestBody @Valid ConsultaDTO consultaDTO) {
+        consultaService.alteracaoParcial(codigo, consultaDTO);
         return new ResponseEntity("Consulta atualizada", HttpStatus.OK);
     }
-
 }
